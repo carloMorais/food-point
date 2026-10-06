@@ -1,9 +1,7 @@
 name: food-point
 services:
     postgres:
-        image: bitnami/postgresql:latest
-        ports:
-            - "5432:5432"
+        image: postgres:16-alpine
         restart: always
         environment:
             POSTGRES_DB: foodpoint
@@ -13,17 +11,27 @@ services:
             - food-point-network
         healthcheck:
             test: ["CMD", "pg_isready", "-U", "foodpoint"]
-            interval: 10s
-            retries: 5
+            interval: 5s
+            retries: 10
 
     backend:
         build:
             context: ./
             dockerfile: dockerfile
         depends_on:
-            - postgres
+            postgres:
+                condition: service_healthy
         ports:
-            - "3000:3000"
+            - "${PORT:-3000}:3000"
+        environment:
+            PORT: 3000
+            DB_HOST: postgres
+            DB_PORT: 5432
+            DB_USER: foodpoint
+            DB_PASSWORD: foodpoint
+            DB_DATABASE_NAME: foodpoint
+            # Local only: set your own when running anywhere else.
+            SECRET_KEY_JWT: ${SECRET_KEY_JWT:-local-dev-secret}
         command: >
             sh -c "npm run migrate && npm run start"
         restart: always

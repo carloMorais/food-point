@@ -12,15 +12,6 @@ let client = new Client({
 	port: config.DB_PORT,
 });
 
-console.log("dump.sql.js");
-console.log("DB_USER, DB_HOST, DB_DATABASE_NAME, DB_PASSWORD, DB_PORT");
-console.log(
-	config.DB_USER,
-	config.DB_HOST,
-	config.DB_DATABASE_NAME,
-	config.DB_PASSWORD,
-	config.DB_PORT,
-);
 
 // Path to your SQL file
 const sqlFilePath = path.join(__dirname, "dump.sql");

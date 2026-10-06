@@ -1,4 +1,8 @@
 FROM node:22-alpine
-WORKDIR /
+WORKDIR /app
+# Dependencies first, so editing the code doesn't reinstall them.
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 COPY . .
-RUN npm install
+EXPOSE 3000
+CMD ["npm", "start"]

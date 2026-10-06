@@ -10,3 +10,5 @@ documentationApi.md
 docker-compose.yml
 .Dockerfile
 .dockerfile
+.env
+.git

@@ -9,15 +9,6 @@ const config = require("./config/config");
 
 const app = express();
 
-console.log("app.js");
-console.log("DB_USER, DB_HOST, DB_DATABASE_NAME, DB_PASSWORD, DB_PORT");
-console.log(
-	config.DB_USER,
-	config.DB_HOST,
-	config.DB_DATABASE_NAME,
-	config.DB_PASSWORD,
-	config.DB_PORT,
-);
 // Database connection configuration
 let client = new Client({
 	user: config.DB_USER,
